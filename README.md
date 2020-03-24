@@ -23,7 +23,7 @@ Nous pourrons regarder par exemple quelles vidéos présentes dans le premier da
 
 
 ## Table de faits
-![alt text](https://imgur.com/WxRBm7w)
+https://imgur.com/WxRBm7w
 
 ## Schéma des aggregats
 ![alt text](https://imgur.com/y9Ufmba)
