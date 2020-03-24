@@ -31,4 +31,9 @@ Nous pourrons regarder par exemple quelles vidéos présentes dans le premier da
 
 ## Requêtes intéréssantes
 
-- à remplir
+(à remplir)
+
+
+## Licences
+
+(à remplir
