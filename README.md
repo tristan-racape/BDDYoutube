@@ -22,6 +22,13 @@ Nous avons lié notre dataset à un autre dataset portant sur des vidéos Youtub
 Nous pourrons regarder par exemple quelles vidéos présentes dans le premier dataset sont arrivés en tendances sur Youtube.
 
 
+## Table de faits
+![alt text](https://imgur.com/WxRBm7w)
+
+## Schéma des aggregats
+![alt text](https://imgur.com/y9Ufmba)
+
+
 ## Construction de la base de données
 #### Détails de la création
 
