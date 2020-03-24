@@ -56,4 +56,4 @@ Il est disponible ici : https://www.kaggle.com/datasnaek/youtube-new
 
 ## Licences
 
-(à remplir)
+Dataset principal : CC0 (Public domain)
