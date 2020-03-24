@@ -14,6 +14,16 @@ Pour gérer le dataset, nous avons choisi d'utiliser le SGBD MongoDB car il éta
 
 Pour insérer le fichier .json dans le SGBD Mongo DB, nous avons utilisé un script python "notes.py"
 
+## Construction de la base de données
+#### Détails de la création
+
+(à remplir)
+
+#### Fichier python
+
+(à remplir)
+
+
 ## Dataset lié
 
 Nous avons lié notre dataset à un autre dataset portant sur des vidéos Youtube, qui référence un grand nombre de vidéos étant passées dans l'onglet "Tendances" de Youtube. Le lien entre les deux dataset se fait avec la colonne "videoID" qui est présente dans les deux dataset, qui est une URL de vidéo.
