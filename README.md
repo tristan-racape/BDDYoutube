@@ -26,7 +26,7 @@ Nous pourrons regarder par exemple quelles vidéos présentes dans le premier da
 ![alt text](https://i.imgur.com/WxRBm7w.png)
 
 ## Schéma des aggregats
-![alt text](https://imgur.com/y9Ufmba)
+![alt text](https://i.imgur.com/y9Ufmba.png)
 
 
 ## Construction de la base de données
