@@ -10,6 +10,14 @@ Les différentes chaînes du dataset sont identifiées avec une URL de chaîne, 
 
 ## SGBD utilisé
 
+Pour gérer le dataset, nous avons choisi d'utiliser le SGBD MongoDB car il était plus adapté que CassandraDB pour gérer les fichiers .json puisque ce SGBD genère des index très optimisés pour le format JSON et peut donc atteindre des temps d'éxecutions aussi rapides qu'une base de donnée au format binaire.
+
+Pour insérer le fichier .json dans le SGBD Mongo DB, nous avons utilisé un script python "notes.py"
+
 ## Dataset lié
+
+Nous avons lié notre dataset à un autre dataset portant sur les chaines Youtube
+
+
 
 ## Requêtes intéréssantes
