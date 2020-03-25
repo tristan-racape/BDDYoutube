@@ -8,13 +8,6 @@ mycol = mydb["videos"]
 
 file = 'youtube_new/YouTubeDataset_withChannelElapsed.json'
 data = []
-listattributechannel = ["channelViewCount", "subscriberCount","videoCount", "channelelapsedtime","channelCommentCount",
-                        "totvideos/videocount", "channelId", "totviews/totsubs", "totalviews/channelelapsedtime"]
-
-listattributevideo = ["videoId", "videoCategoryId", "views/subscribers", "likes/subscriber", "likes/views",
-                      "dislikes/views", "videoViewCount", "comments/subscriber", "likes/dislikes", "comments/views",
-                      "elapsedtime", "videoDislikeCount", "dislikes/subscriber", "views/elapsedtime",
-                      "VideoCommentCount"]
 with open(file) as f:
     for line in f:
         data.append(json.loads(line))
@@ -26,14 +19,23 @@ for object in data[0]:
     video = {}
 
     for attribute,valeur in object.items():
-        if attribute in listattributechannel :
+        if ((attribute == "channelViewCount") | (attribute =="subscriberCount") | (attribute =="videoCount") |
+                (attribute =="channelelapsedtime") | (attribute =="channelCommentCount") |
+                (attribute =="totvideos/videocount") | (attribute =="channelId") |
+                (attribute =="totviews/totsubs") | (attribute == "totalviews/channelelapsedtime")) :
             channel[attribute] = valeur
     # print(channel)
     # ajouter a la db le dictionnaire channel
     x = mycol.insert_one(channel)
 
     for attribute, valeur in object.items():
-        if attribute in listattributevideo:
+        if ((attribute == "videoId") | (attribute == "videoCategoryId") | (attribute == "views/subscribers") | (
+                attribute == "likes/subscriber") | (attribute == "likes/views") | (
+                attribute == "dislikes/views") | (attribute == "videoViewCount") | (
+                attribute == "comments/subscriber") | (attribute == "likes/dislikes") | (attribute == "comments/views")
+                | (attribute == "elapsedtime") | (attribute == "videoDislikeCount") |
+                (attribute == "dislikes/subscriber")
+                | (attribute == "views/elapsedtime") | (attribute == "VideoCommentCount")):
             video[attribute] = valeur
         if attribute == "channelId":
             myquery = {attribute: valeur}
