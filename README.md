@@ -1,6 +1,29 @@
 # BDDYoutube
 ## LAURENT Mathis, RACAPE Tristan, DURAND Erwan, GIRARD Lucie
 
+## Construction de la base de données
+
+### Dépendences
+
+Vous aurez besoin de :
+
+    Python 3
+    pymongo : pip install pymongo
+    apiclient.discovery : pip install --upgrade google-api-python-client
+
+### Éxecution des scripts
+
+Pour construire la base de données, il faut d'abord télécharger ce dataset : https://drive.google.com/file/d/1uL0tHMoXIVKow1zM34bcAp2Ku139mFBo/view
+
+Une fois téléchargé il faut placer ce dataset dans un dossier youtube_new (ou modifier l'emplacement dans le script).
+Il faut ensuite générer une clé Youtube api V3 (https://developers.google.com/youtube/v3/getting-started?hl=fr) que vous placerez dans la variable api_key de script_channel.py et script_commentaire.py
+
+puis éxecuter dans l'ordre : 
+
+    python insert_premier_dataset.py
+    python script_channel.py
+    python script_commentaire.py
+    
 ## Datasets utilisés
 
 Pour notre projet de base de données nous avons choisi d'utiliser un dataset portant sur différentes variétés de chaînes Youtube.
@@ -28,30 +51,6 @@ Il est disponible ici : https://www.kaggle.com/datasnaek/youtube-new
 
 ## Schéma des aggregats
 ![alt text](https://i.imgur.com/y9Ufmba.png)
-
-
-## Construction de la base de données
-
-### Dépendences
-
-Vous aurez besoin de :
-
-    Python 3
-    pymongo : pip install pymongo
-    apiclient.discovery : pip install --upgrade google-api-python-client
-
-### éxecution des scripts
-
-Pour construire la base de données, il faut d'abord télécharger ce dataset : https://drive.google.com/file/d/1uL0tHMoXIVKow1zM34bcAp2Ku139mFBo/view
-
-Une fois téléchargé il faut placer ce dataset dans un dossier youtube_new (ou modifier l'emplacement dans le script).
-Il faut ensuite générer une clé Youtube api V3 (https://developers.google.com/youtube/v3/getting-started?hl=fr) que vous placerez dans la variable api_key de script_channel.py et script_commentaire.py
-
-puis éxecuter dans l'ordre : 
-
-    python insert_premier_dataset.py
-    python script_channel.py
-    python script_commentaire.py
     
 ## Requêtes intéréssantes
 
