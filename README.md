@@ -52,7 +52,7 @@ Il est disponible ici : https://www.kaggle.com/datasnaek/youtube-new
     
 ## Requêtes intéréssantes
 
-10 exemples de requêtes intéressantes sont présentes dans le fichier requete.txt
+10 exemples de requêtes intéressantes sont présentes dans le fichier requetes.txt
 
 ## Licences
 
