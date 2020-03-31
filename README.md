@@ -11,14 +11,14 @@ Vous aurez besoin de :
     pymongo : pip install pymongo
     apiclient.discovery : pip install --upgrade google-api-python-client
 
-### Éxecution des scripts
+### Exécution des scripts
 
 Pour construire la base de données, il faut d'abord télécharger ce dataset : https://drive.google.com/file/d/1uL0tHMoXIVKow1zM34bcAp2Ku139mFBo/view
 
 Une fois téléchargé il faut placer ce dataset dans un dossier youtube_new (ou modifier l'emplacement dans le script).
 Il faut ensuite générer une clé Youtube api V3 (https://developers.google.com/youtube/v3/getting-started?hl=fr) que vous placerez dans la variable api_key de script_channel.py et script_commentaire.py
 
-puis éxecuter dans l'ordre : 
+puis exécuter dans l'ordre : 
 
     python insert_premier_dataset.py
     python script_channel.py
