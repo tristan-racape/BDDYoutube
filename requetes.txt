@@ -166,3 +166,125 @@ db.videos.aggregate([
 
 
 ______________________________________________________________________________________________________________________________________
+*************************************************************6ème REQUÊTE*************************************************************
+
+Recherche des chaînes populaires en développement, c'est à dire les chaînes ayant plus de 50 000 abonnés avec un ratio d'au minimum 
+1 commentaire pour 1000 vues pour au moins une vidéo de la chaîne.
+
+db.videos.aggregate([
+    {$unwind: "$video"},
+    {
+        $addFields: {
+            "subscriberCountDouble": {$toDouble : "$subscriberCount"}
+        }
+    },
+    {
+        $match: {
+            "subscriberCountDouble": {"$gte": 50000},
+            "video.VideoCommentCount": {"$ne": "0"}
+        }
+    },
+    {
+        $group:{
+            "_id": {"numberOfViewsPerRatio": {
+                $divide: [
+                    {$toDouble : "$video.videoViewCount"},
+                    {$multiply: [
+                        {$toDouble: "$video.VideoCommentCount"},
+                        1000
+                    ]}
+                ]    
+            },
+            "channelId": "$channelId"}
+        }
+    },
+    {
+        $match: {
+            "_id.numberOfViewsPerRatio": {$gt: 1}
+        }
+    },
+    {$sort: {_id: -1}}
+])
+
+______________________________________________________________________________________________________________________________________
+*************************************************************7ème REQUÊTE*************************************************************
+
+Affichage du nombre de vues totales par catégorie de vidéo (les catégories sont représentés par des entiers)
+
+
+db.videos.aggregate([
+    {$unwind: "$video"},
+    {
+        $group: {
+            "_id": {
+                vcat :  "$video.videoCategoryId" 
+            },
+            "nbVuesDeLaCategorie": {
+                $sum: {$toLong : "$video.videoViewCount"}
+            }
+        }
+    },
+    {$sort: {nbVuesDeLaCategorie: -1}}
+    
+])
+
+
+______________________________________________________________________________________________________________________________________
+*************************************************************8ème REQUÊTE*************************************************************
+
+Affichage du nombre moyen d'abonnés d'une chaîne 
+
+db.videos.aggregate([
+	{
+		$group: {
+			"_id": null,
+			"MoyenneAbonnes" : { $avg: {$toDouble : "$subscriberCount"}}
+		}
+	}
+])
+
+______________________________________________________________________________________________________________________________________
+*************************************************************9ème REQUÊTE*************************************************************
+
+Affichage des 10 chaînes ayant le plus de vidéos renseignées dans le dataset
+
+
+db.videos.aggregate([
+	{
+		$project: {
+			_id : false,
+			name: true ,
+			"nbVideos" : { $size: { "$ifNull": [ "$video", [] ] }}
+		}
+	},
+	{$sort: {nbVideos: -1}},
+	{$limit : 10}
+])
+
+
+______________________________________________________________________________________________________________________________________
+************************************************************10ème REQUÊTE*************************************************************
+
+Affichage des chaînes ayant plus de 10 000 abonnés et ayant "The" dans leur nom de chaîne
+
+
+db.videos.aggregate([
+	{
+        $addFields: {
+            "subscriberCountLong": {$toLong : "$subscriberCount"}
+        }
+    },
+	{$match : 
+		{ $and : [
+			{subscriberCountLong: {$gte: 10000 }},
+			{name : /The/}
+		]}
+	},
+	{
+		$project: {
+			_id: 0,
+			name: 1,
+			subscriberCount :1
+		}
+	}
+])
