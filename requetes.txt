@@ -1,0 +1,168 @@
+Les requêtes ci-dessous ont été exécutées à partir du Mongo Shell
+Il est possible de les exécuter en copiant et collant les requêtes en ligne de commande sur le Mongo Shell après lancement du serveur.
+______________________________________________________________________________________________________________________________________
+*************************************************************1ère REQUÊTE*************************************************************
+
+
+Classement du nombre de chaînes youtube selon leur nombre de vidéos postées;
+on filtre en ne considérant que les chaînes possédant au moins 200 vidéos sur leur chaîne;
+et on ordonne par ordre croissant le nombre de vidéos par chaîne.
+
+
+db.videos.aggregate([
+	{
+		$addFields: {
+			"videoCountDouble": {$toDouble : "$videoCount"}
+		}
+	},
+	{
+		$match: {
+			videoCountDouble: {$gte: 200}
+		}
+	},
+	{
+		$group: {
+			"_id": {"nbVideo": {$toDouble: '$videoCount'}},
+			"nbChannelCorrespondingToTheNumberOfVideos": {"$sum": 1}
+		},
+	},
+	{$sort: {_id: 1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
+*************************************************************2ème REQUÊTE*************************************************************
+
+
+Nombre de vidéos publiées par année; puis ordonné par année.
+
+
+db.videos.aggregate([
+	{$unwind: "$video"},
+	{
+		$group: {
+			"_id": {"year": {$year: {$dateFromString: {dateString: '$video.videoPublished'}}}},
+			"nbVideoForOneYear" : {"$sum": 1}
+		}
+	},
+	{$sort: {_id: 1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
+***********************************************************2ème REQUÊTE bis***********************************************************
+
+
+Variante avec publiées par mois; puis ordonné par mois.
+
+
+db.videos.aggregate([
+	{$unwind: "$video"},
+	{
+		$group: {
+			"_id": {"month": {$month: {$dateFromString: {dateString: '$video.videoPublished'}}}},
+			"nbVideoForOneMonth" : {"$sum": 1}
+		}
+	},
+	{$sort: {_id: 1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
+*************************************************************3ème REQUÊTE*************************************************************
+
+
+Classement des mots les plus utilisés dans les descriptions des chaînes youtube.
+
+
+db.videos.aggregate([
+	{
+		$match: {
+			"mot": {$ne: ""}
+		}
+	},
+	{
+		$group: {
+			"_id": {"mot": {$split: ["$description", " "]}},
+			"nbChannelWithMotInTheDescription" : {"$sum": 1}
+		}
+	},
+	{$unwind: "$_id.mot"},
+	{
+		$group:{
+			"_id": {"word": "$_id.mot"},
+			"nbChannelUsingTheWordInTheirDescription": {"$sum": 1}
+		}
+	},
+	{$sort: {nbChannelUsingTheWordInTheirDescription: -1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
+*************************************************************4ème REQUÊTE*************************************************************
+
+
+Classement des chaînes avec le nombre de commentaires, qui sont dans le top commentaires,
+et qui ont été publiés le même jour que le jour de publication de la vidéo.
+
+
+db.videos.aggregate([
+	{$unwind: "$video"},
+	{$unwind: "$video.topComment"},
+	{
+		$group: {
+			"_id": {"videoId" : '$video.videoId'},
+			"nbCommPublished10MinAfter": {
+				$sum: {
+					$cond: [
+						{
+							$and: [
+								{$eq: [
+									{$year: {$dateFromString: {dateString: '$video.topComment.publishedAt'}}},
+									{$year: {$dateFromString: {dateString: '$video.videoPublished'}}}
+								]},
+								{$eq: [
+									{$month: {$dateFromString: {dateString: '$video.topComment.publishedAt'}}},
+									{$month: {$dateFromString: {dateString: '$video.videoPublished'}}}
+								]},
+								{$eq: [
+									{$dayOfMonth: {$dateFromString: {dateString: '$video.topComment.publishedAt'}}},
+									{$dayOfMonth: {$dateFromString: {dateString: '$video.videoPublished'}}}
+								]}
+							]
+						},
+						1,
+						0
+					]
+				}
+			}
+		}
+	},
+	{$sort: {nbCommPublished10MinAfter: -1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
+*************************************************************5ème REQUÊTE*************************************************************
+
+
+Classement du nombre de chaîne par leurs nombre d'abonnés; classés par ordre croissant.
+
+
+db.videos.aggregate([
+	{
+		$addFields: {
+			"subscriberCountDouble": {$toDouble : "$subscriberCount"}
+		}
+	},
+	{
+		$group: {
+			"_id": {"totalSubscribers": "$subscriberCountDouble"},
+			"nbChannelWithThisNumberSubscribersCorresponding": {$sum: 1},
+		}
+	},
+	{$sort: {_id: 1}}
+])
+
+
+______________________________________________________________________________________________________________________________________
