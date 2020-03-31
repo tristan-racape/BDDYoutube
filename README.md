@@ -24,6 +24,8 @@ puis éxecuter dans l'ordre :
     python script_channel.py
     python script_commentaire.py
     
+Les éxecutions peuvent être longs ou soumis à des dépassements de quotas par Youtube et vous n'êtes pas obligé d'éxecuté les scripts jusqu'au bout. Par exemple, 50 000 itérations pour le 1er script sont suffisantes si le but est seulement de tester.
+
 ## Datasets utilisés
 
 Pour notre projet de base de données nous avons choisi d'utiliser un dataset portant sur différentes variétés de chaînes Youtube.
