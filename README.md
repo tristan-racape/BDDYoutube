@@ -48,7 +48,7 @@ Il est disponible ici : https://www.kaggle.com/datasnaek/youtube-new
 
 
 ## Schéma des aggregats
-![alt text](https://i.imgur.com/y9Ufmba.png)
+![alt text](https://i.imgur.com/EKMCv1N.png)
     
 ## Requêtes intéréssantes
 
