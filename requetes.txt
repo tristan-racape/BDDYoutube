@@ -112,7 +112,7 @@ db.videos.aggregate([
 	{
 		$group: {
 			"_id": {"videoId" : '$video.videoId'},
-			"nbCommPublished10MinAfter": {
+			"nbCommPublished1TheSameDay": {
 				$sum: {
 					$cond: [
 						{
@@ -138,7 +138,7 @@ db.videos.aggregate([
 			}
 		}
 	},
-	{$sort: {nbCommPublished10MinAfter: -1}}
+	{$sort: {nbCommPublished1TheSameDay: -1}}
 ])
 
 
